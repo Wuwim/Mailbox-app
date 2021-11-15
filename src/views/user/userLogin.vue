@@ -65,19 +65,20 @@
     </div>
 
     <div class="submit">
-      <span class="w" :class="btnColor ? 'w2' : 'w1'" @click="onSubmit"
-        >给校长写信</span
-      >
+      <span class="w" :class="btnColor ? 'w2' : 'w1'" @click="onSubmit">{{
+        type === "1" ? "给校长写信" : "管理员登录"
+      }}</span>
     </div>
   </div>
 </template>
 <script>
-import { Toast } from "vant";
+// import { Toast } from "vant";
 export default {
   data() {
     return {
+      type: this.$route.query.type ? this.$route.query.type : "1", //'1':普通员工;'2':管理员
       info: {
-        uname: "呜呜呜",
+        username: "呜呜呜",
         idcard: "332525200010101010",
         phonenum: "15990446791",
         code: "",
@@ -89,95 +90,95 @@ export default {
       btnColor: false,
     };
   },
+  mounted() {
+    console.log("type=", this.type);
+    // this.$toast.success("提示文案");
+  },
   methods: {
     onSubmit() {
       //姓名验证
-      if (this.info.uname == "") {
-        Toast("请输入姓名");
-        return;
-      }
-      //身份证验证
-      if (this.info.idcard == "") {
-        Toast("请输入身份证号码");
-        return;
-      } else if (
-        !/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(this.info.idcard)
-      ) {
-        Toast("请输入正确的身份证号码");
-        return;
-      }
-
-      //手机号验证
-      if (this.info.phonenum == "") {
-        Toast("请输入手机号");
-        return;
-      } else if (!/^1(3|4|5|7|8)\d{9}$/.test(this.info.phonenum)) {
-        Toast("请输入正确的手机号");
-        return;
-      }
-      //验证码验证
-      if (this.info.code == "") {
-        Toast("请输入验证码");
-        return;
-      }
-      this.$api.user
-        .userLogin({
-          idCard: this.info.idcard,
-          phone: this.info.phonenum,
-          userName: this.info.uname,
-          verificationCode: this.info.code,
-        })
-        .then((res) => {
-          if (res.data.code == 0) {
-            console.log(res);
-            Toast(res.data.data.userName + res.data.msg);
-            this.$router.push({
-              path: "/writeEmail",
-              query: {
-                idCard: this.info.idcard,
-              },
-            });
-          } else {
-            console.log(res);
-            Toast(res.data.msg);
-          }
-        });
+      // if (this.info.uname == "") {
+      //   Toast("请输入姓名");
+      //   return false;
+      // }
+      // //身份证验证
+      // if (this.info.idcard == "") {
+      //   Toast("请输入身份证号码");
+      //   return;
+      // } else if (
+      //   !/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(this.info.idcard)
+      // ) {
+      //   Toast("请输入正确的身份证号码");
+      //   return;
+      // }
+      // //手机号验证
+      // if (this.info.phonenum == "") {
+      //   Toast("请输入手机号");
+      //   return;
+      // } else if (!/^1(3|4|5|7|8)\d{9}$/.test(this.info.phonenum)) {
+      //   Toast("请输入正确的手机号");
+      //   return;
+      // }
+      // //验证码验证
+      // if (this.info.code == "") {
+      //   Toast("请输入验证码");
+      //   return;
+      // }
+      // this.$api.user
+      //   .userLogin({
+      //     idCard: this.info.idcard,
+      //     phone: this.info.phonenum,
+      //     userName: this.info.uname,
+      //     verificationCode: this.info.code,
+      //   })
+      //   .then((res) => {
+      //     if (res.data.code == 0) {
+      //       console.log(res);
+      //       Toast(res.data.data.userName + res.data.msg);
+      //       this.$router.push({
+      //         path: "/writeEmail",
+      //         query: {
+      //           idCard: this.info.idcard,
+      //         },
+      //       });
+      //     } else {
+      //       console.log(res);
+      //       Toast(res.data.msg);
+      //     }
+      //   });
     },
     getCode() {
-      if (this.info.phonenum == "") {
-        Toast("请输入手机号");
-        return;
-      } else if (!/^1(3|4|5|7|8)\d{9}$/.test(this.info.phonenum)) {
-        Toast("请输入正确的手机号");
-        return;
-      }
-      this.$api.user
-        .sendCode({
-          phone: this.info.phonenum,
-        })
-        .then((res) => {
-          console.log(res);
-
-          Toast(res.data.msg);
-        });
-
-      this.btnColor = true;
-      if (this.status) {
-        Toast("请等待");
-        return;
-      }
-      console.log("获取验证码");
-      this.status = true;
-      this.loading();
-
-      this.timer = setInterval(() => {
-        if (this.num === 0) {
-          this.timer && this.clearTimer();
-          this.reset();
-        } else {
-          this.loading();
-        }
-      }, 1000);
+      // if (this.info.phonenum == "") {
+      //   Toast("请输入手机号");
+      //   return;
+      // } else if (!/^1(3|4|5|7|8)\d{9}$/.test(this.info.phonenum)) {
+      //   Toast("请输入正确的手机号");
+      //   return;
+      // }
+      // this.$api.user
+      //   .sendCode({
+      //     phone: this.info.phonenum,
+      //   })
+      //   .then((res) => {
+      //     console.log(res);
+      //     Toast(res.data.msg);
+      //   });
+      // this.btnColor = true;
+      // if (this.status) {
+      //   Toast("请等待");
+      //   return;
+      // }
+      // console.log("获取验证码");
+      // this.status = true;
+      // this.loading();
+      // this.timer = setInterval(() => {
+      //   if (this.num === 0) {
+      //     this.timer && this.clearTimer();
+      //     this.reset();
+      //   } else {
+      //     this.loading();
+      //   }
+      // }, 1000);
     },
     reset() {
       this.num = 10;
@@ -197,14 +198,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.flex_col {
-  display: flex;
-  flex-direction: column;
-}
-.flex_row {
-  display: flex;
-  flex-direction: row;
-}
 .page {
   width: 100%;
   height: 100vh;

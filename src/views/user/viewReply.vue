@@ -6,23 +6,20 @@
         <input class="title" type="text" placeholder="回复：" readonly />
       </div>
       <van-field
-        v-model="info.problemDescription"
+        v-model="info.reply"
         type="textarea"
-        placeholder="请输入留言"
+        placeholder="该条信件暂时还没有领导回复，请等待~~~"
         autosize
         readonly
       />
-      <div class="end_time">{{ info.createTime }}</div>
+      <div class="end_time">{{ info.updateTime }}</div>
       <div class="ask_box">
-        <div class="ask" v-show="info.reply == null">
-          <div class="title">该条信件暂时还没有领导回复，请等待~~~</div>
-        </div>
-        <div class="ask" v-show="!info.reply == null">
-          <div class="title">这个接口获取不到</div>
+        <div class="ask">
+          <div class="title">{{ info.theme }}</div>
           <div class="content">
-            {{ info.reply }}
+            {{ info.problemDescription }}
           </div>
-          <div class="stat_time">{{ info.updateTime }}</div>
+          <div class="stat_time">{{ info.createTime }}</div>
         </div>
       </div>
     </div>

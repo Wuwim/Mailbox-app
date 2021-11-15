@@ -41,6 +41,8 @@
           :show-subtitle="false"
           :show-confirm="false"
           :poppable="false"
+          :min-date="minDate"
+          :max-date="maxDate"
           color="#4B98F7"
           :row-height="40"
           @confirm="onConfirm"
@@ -64,12 +66,14 @@
               <div class="content">{{ item.problemDescription }}</div>
               <div class="fgx"></div>
               <div class="ask_infor flex_row">
-                <div class="ask_head">
-                  <img class="img" src="../../img/head-portrait.png" alt="" />
-                </div>
-                <div class="ask_msg">
-                  <div class="ask_name">{{ item.userName }}</div>
-                  <div class="ask_idcode">{{ item.createBy }}</div>
+                <div class="ask_box flex_row">
+                  <div class="ask_head">
+                    <img class="img" src="../../img/head-portrait.png" alt="" />
+                  </div>
+                  <div class="ask_msg">
+                    <div class="ask_name">{{ item.userName }}</div>
+                    <div class="ask_idcode">{{ item.createBy }}</div>
+                  </div>
                 </div>
                 <div class="ask_time">{{ item.createTime }}</div>
               </div>
@@ -99,12 +103,14 @@
               <div class="content">{{ item.problemDescription }}</div>
               <div class="fgx"></div>
               <div class="ask_infor flex_row">
-                <div class="ask_head">
-                  <img class="img" src="../../img/head-portrait.png" alt="" />
-                </div>
-                <div class="ask_msg">
-                  <div class="ask_name">{{ item.userName }}</div>
-                  <div class="ask_idcode">{{ item.createBy }}</div>
+                <div class="ask_box flex_row">
+                  <div class="ask_head">
+                    <img class="img" src="../../img/head-portrait.png" alt="" />
+                  </div>
+                  <div class="ask_msg">
+                    <div class="ask_name">{{ item.userName }}</div>
+                    <div class="ask_idcode">{{ item.createBy }}</div>
+                  </div>
                 </div>
                 <div class="ask_time">{{ item.createTime }}</div>
               </div>
@@ -113,6 +119,10 @@
         </van-tab>
       </van-tabs>
     </div>
+
+
+
+
   </div>
 </template>
 <script>
@@ -121,11 +131,15 @@ export default {
     return {
       userId: "",
       searchValue: "",
+      startTimeValue: "",
+      endTimeValue: "",
       date: "",
       startWeek: "周~",
       endWeek: "周~",
       startTime: "~月~日",
       endTime: "~月~日",
+      minDate: new Date(2021, 1, 1),
+      maxDate: new Date(2022, 1, 1),
       show: false,
       repliedList: [],
       noReplyList: [],
@@ -135,14 +149,15 @@ export default {
     let routerParams = this.$route.query.id;
     this.userId = routerParams;
     console.log(this.userId);
-    this.getList();
-    this.getList1();
+    this.getList(this.startTimeValue, this.endTimeValue, this.searchValue);
+    this.getList1(this.startTimeValue, this.endTimeValue, this.searchValue);
   },
 
   methods: {
-    search(searchValue) {
-      this.getList(searchValue);
-      this.getList1(searchValue);
+    
+    search() {
+      this.getList(this.startTimeValue, this.endTimeValue, this.searchValue);
+      this.getList1(this.startTimeValue, this.endTimeValue, this.searchValue);
     },
     getList(sTime, eTime, theme) {
       this.$api.admin
@@ -214,19 +229,17 @@ export default {
       this.startWeek = datelist[start.getDay()];
       this.endWeek = datelist[end.getDay()];
       this.show = false;
-      console.log(this.startTime);
-      console.log(this.endWeek);
-      var sTime =
+      this.startTimeValue =
         start.getFullYear() +
         "-" +
         (start.getMonth() + 1) +
         "-" +
         start.getDate();
-      var eTime =
+      this.endTimeValue =
         end.getFullYear() + "-" + (end.getMonth() + 1) + "-" + end.getDate();
-      console.log(sTime, eTime);
-      this.getList(sTime, eTime);
-      this.getList1(sTime, eTime);
+      console.log(this.startTimeValue, this.endTimeValue);
+      this.getList(this.startTimeValue, this.endTimeValue, this.searchValue);
+      this.getList1(this.startTimeValue, this.endTimeValue, this.searchValue);
     },
   },
 };
@@ -268,12 +281,18 @@ input[class="van-field__control"]::-webkit-input-placeholder {
     }
   }
   .chose_times {
+    -webkit-overflow-scrolling: touch;
+    // overflow-y: scroll;
     background: #ffffff;
     .time_title {
+      z-index: 9999;
+      width: 100%;
+      position: fixed;
       padding: 14px 0;
       font-size: 16px;
       font-weight: 500;
       text-align: center;
+      background-color: #fff;
       .time_detail {
         margin-top: 15px;
         margin-bottom: 10px;
@@ -347,33 +366,36 @@ input[class="van-field__control"]::-webkit-input-placeholder {
         .ask_infor {
           margin-top: 10px;
           align-items: center;
-          .ask_head {
-            display: flex;
+          justify-content: space-between;
+          .ask_box {
             align-items: center;
-            justify-content: center;
-            width: 20px;
-            height: 20px;
-            background: linear-gradient(180deg, #4b98f7 0%, #3779cc 100%);
-            box-shadow: 0px 3px 5px rgba(0, 100, 251, 0.16);
-            border-radius: 50%;
-            .img {
-              width: 8px;
-              height: 12px;
+            .ask_head {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 20px;
+              height: 20px;
+              background: linear-gradient(180deg, #4b98f7 0%, #3779cc 100%);
+              box-shadow: 0px 3px 5px rgba(0, 100, 251, 0.16);
+              border-radius: 50%;
+              .img {
+                width: 8px;
+                height: 12px;
+              }
+            }
+            .ask_msg {
+              margin-left: 10px;
+              font-size: 11px;
+              .ask_name {
+                color: #3a3a3a;
+              }
+              .ask_idcode {
+                color: #9c9c9c;
+              }
             }
           }
-          .ask_msg {
-            margin-left: 10px;
-            font-size: 11px;
-            .ask_name {
-              color: #3a3a3a;
-            }
-            .ask_idcode {
-              color: #9c9c9c;
-            }
-          }
+
           .ask_time {
-            margin-left: 55px;
-            margin-top: 16px;
             font-size: 12px;
             color: #3a3a3a;
           }
@@ -454,33 +476,35 @@ input[class="van-field__control"]::-webkit-input-placeholder {
         .ask_infor {
           margin-top: 10px;
           align-items: center;
-          .ask_head {
-            display: flex;
+          justify-content: space-between;
+          .ask_box {
             align-items: center;
-            justify-content: center;
-            width: 20px;
-            height: 20px;
-            background: linear-gradient(180deg, #4b98f7 0%, #3779cc 100%);
-            box-shadow: 0px 3px 5px rgba(0, 100, 251, 0.16);
-            border-radius: 50%;
-            .img {
-              width: 8px;
-              height: 12px;
+            .ask_head {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 20px;
+              height: 20px;
+              background: linear-gradient(180deg, #4b98f7 0%, #3779cc 100%);
+              box-shadow: 0px 3px 5px rgba(0, 100, 251, 0.16);
+              border-radius: 50%;
+              .img {
+                width: 8px;
+                height: 12px;
+              }
             }
-          }
-          .ask_msg {
-            margin-left: 10px;
-            font-size: 11px;
-            .ask_name {
-              color: #3a3a3a;
-            }
-            .ask_idcode {
-              color: #9c9c9c;
+            .ask_msg {
+              margin-left: 10px;
+              font-size: 11px;
+              .ask_name {
+                color: #3a3a3a;
+              }
+              .ask_idcode {
+                color: #9c9c9c;
+              }
             }
           }
           .ask_time {
-            margin-left: 55px;
-            margin-top: 16px;
             font-size: 12px;
             color: #3a3a3a;
           }
@@ -518,6 +542,17 @@ input[class="van-field__control"]::-webkit-input-placeholder {
 ::v-deep .van-tab--active {
   color: #333333;
   font-weight: 500;
+}
+::v-deep .van-calendar__header {
+  z-index: 9999;
+  margin-top: 136px;
+  position: fixed;
+  width: 100%;
+  background-color: #fff;
+}
+::v-deep .van-calendar__body {
+  overflow-y: scroll;
+  margin-top: 160px;
 }
 ::v-deep .van-calendar__day--start {
   border-radius: 40px 0 0 40px;

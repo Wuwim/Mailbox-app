@@ -4,55 +4,15 @@
  */
 import axios from 'axios';
 import { Toast } from 'vant';
-
-/** 
- * 提示函数 
- * 禁止点击蒙层、显示一秒后关闭
- */
-const tip = msg => {
-    Toast({
-        message: msg,
-        duration: 1000,
-        forbidClick: true
-    });
-}
-
-/** 
- * 跳转登录页
- * 携带当前页面路由，以期在登录页面完成登录后返回当前页面
-//  */
-// const toLogin = () => {
-//     router.replace({
-//         path: '/login',
-//         query: {
-//             redirect: router.currentRoute.fullPath
-//         }
-//     });
-// }
-
-/** 
- * 请求失败后的错误统一处理 
- * @param {Number} code 请求失败的状态码
- */
-const errorHandle = (code, other) => {
-    // 状态码判断
-    switch (code) {
-        // 401: 未登录状态，跳转登录页
-        case 401:
-            tip(
-                '请登录'
-            );
-            // toLogin();
-            break;
-        default:
-            console.log(other);
-    }
-}
-
+import Qs from 'qs';
 // 创建axios实例
-var instance = axios.create({ timeout: 1000 * 10 });
+const instance = axios.create({
+    timeout: 10000,
+    baseURL: process.env.VUE_APP_API
+});
 // 设置post请求头
 instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
 /** 
  * 请求拦截器   
  * 每次请求前，如果存在token则在请求头中携带token 
@@ -63,6 +23,17 @@ instance.interceptors.request.use(
         // 但是即使token存在，也有可能token是过期的，所以在每次的请求头中携带token        
         // 后台根据携带的token判断用户的登录情况，并返回给我们对应的状态码        
         // 而后我们可以在响应拦截器中，根据状态码进行一些统一的操作。
+        console.log('config=', config)
+        if (config.method === 'post') {
+            const contentType = config.headers['Content-Type'];
+            if (contentType) {
+                if (contentType.includes('json')) {
+                    config.data = JSON.stringify(config.data)
+                } else {
+                    config.data = Qs.stringify(config.data)
+                }
+            }
+        }
         return config;
     },
     error => Promise.error(error))
@@ -91,4 +62,36 @@ instance.interceptors.response.use(
         }
     });
 
+/** 
+ * 提示函数 
+ * 禁止点击蒙层、显示一秒后关闭
+ */
+const tip = msg => {
+    Toast({
+        message: msg,
+        duration: 1000,
+        forbidClick: true
+    });
+}
+
+/** 
+ * 请求失败后的错误统一处理 
+ * @param {Number} code 请求失败的状态码
+ */
+const errorHandle = (code, other) => {
+    // 状态码判断
+    switch (code) {
+        // 401: 未登录状态，跳转登录页
+        case 401:
+            tip(
+                '请登录'
+            );
+            // toLogin();
+            break;
+        default:
+            console.log(other);
+    }
+}
+
 export default instance;
+

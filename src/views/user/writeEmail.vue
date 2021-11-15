@@ -4,7 +4,7 @@
       <img class="box_logo" src="../../img/wemail.png" alt="" />
       <div class="box_body">
         <input
-          v-model="info.tltle"
+          v-model="info.title"
           maxlength="30"
           class="title"
           type="text"
@@ -13,8 +13,6 @@
         <textarea
           v-model="info.content"
           class="content"
-          name=""
-          id=""
           rows="20"
           maxlength="500"
           placeholder="请输入详情（限制500字以内）"
