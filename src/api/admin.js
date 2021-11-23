@@ -7,23 +7,3 @@ export function getList(data) {
         data: data
     })
 }
-
-// const admin = {
-//     // 获取列表
-//     getList(params) {
-//         return axios.post(`${base.sq}/pcMailbox/mailboxList`, qs.stringify(params));
-//     },
-//     //查看详情
-//     mailboxDetails(params) {
-//         return axios.post(`${base.sq}/appMailbox/mailboxDetails`, qs.stringify(params));
-//     },
-//     //回复消息
-//     updateMailbox(params) {
-//         return axios.post(`${base.sq}/pcMailbox/updateMailbox`, qs.stringify(params));
-//     },
-
-
-
-// }
-
-// export default admin;

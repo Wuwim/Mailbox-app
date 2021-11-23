@@ -5,5 +5,12 @@
 
 .flex_row {
     display: flex;
-    flex-direction: row;
+
+}
+
+.page {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }

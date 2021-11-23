@@ -6,28 +6,24 @@ import axios from 'axios';
 import { Toast } from 'vant';
 import Qs from 'qs';
 // 创建axios实例
-const instance = axios.create({
+const request = axios.create({
     timeout: 10000,
     baseURL: process.env.VUE_APP_API
 });
 // 设置post请求头
-instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+request.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 /** 
  * 请求拦截器   
  * 每次请求前，如果存在token则在请求头中携带token 
  */
-instance.interceptors.request.use(
+request.interceptors.request.use(
     config => {
-        // 登录流程控制中，根据本地是否存在token判断用户的登录情况        
-        // 但是即使token存在，也有可能token是过期的，所以在每次的请求头中携带token        
-        // 后台根据携带的token判断用户的登录情况，并返回给我们对应的状态码        
-        // 而后我们可以在响应拦截器中，根据状态码进行一些统一的操作。
-        console.log('config=', config)
+
         if (config.method === 'post') {
             const contentType = config.headers['Content-Type'];
             if (contentType) {
-                if (contentType.includes('json')) {
+                if (contentType.includes('json')) {//检测是否包含json
                     config.data = JSON.stringify(config.data)
                 } else {
                     config.data = Qs.stringify(config.data)
@@ -39,15 +35,13 @@ instance.interceptors.request.use(
     error => Promise.error(error))
 
 // 响应拦截器
-instance.interceptors.response.use(
+request.interceptors.response.use(
     // 请求成功
     res => res.status === 200 ? Promise.resolve(res) : Promise.reject(res),
     // 请求失败
     error => {
         const { response } = error;
         if (response) {
-            // 请求已发出，但是不在2xx的范围 
-            errorHandle(response.status, response.data.message);
             return Promise.reject(response);
         } else {
             // 处理断网的情况
@@ -74,24 +68,6 @@ const tip = msg => {
     });
 }
 
-/** 
- * 请求失败后的错误统一处理 
- * @param {Number} code 请求失败的状态码
- */
-const errorHandle = (code, other) => {
-    // 状态码判断
-    switch (code) {
-        // 401: 未登录状态，跳转登录页
-        case 401:
-            tip(
-                '请登录'
-            );
-            // toLogin();
-            break;
-        default:
-            console.log(other);
-    }
-}
 
-export default instance;
+export default request;
 

@@ -6,38 +6,28 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'userLogin',
-    component: () => import('../views/user/userLogin.vue')
+    name: 'login',
+    component: () => import('../views/email/login.vue')
   },
   {
-    path: '/writeEmail',
+    path: '/email/writeEmail',
     name: 'writeEmail',
-    component: () => import('../views/user/writeEmail.vue')
+    component: () => import('../views/email/writeEmail.vue')
   },
   {
-    path: '/viewReply',
+    path: '/email/viewReply',
     name: 'viewReply',
-    component: () => import('../views/user/viewReply.vue')
+    component: () => import('../views/email/viewReply.vue')
   },
   {
-    path: '/adminLogin',
-    name: 'adminLogin',
-    component: () => import('../views/admin/adminLogin.vue')
-  },
-  {
-    path: '/adminEmail',
+    path: '/email/adminEmail',
     name: 'adminEmail',
-    component: () => import('../views/admin/adminEmail.vue')
+    component: () => import('../views/email/adminEmail.vue')
   },
   {
-    path: '/viewDetail',
+    path: '/email/viewDetail',
     name: 'viewDetail',
-    component: () => import('../views/admin/viewDetail.vue')
-  },
-  {
-    path: '/adminAnswer',
-    name: 'adminAnswer',
-    component: () => import('../views/admin/adminAnswer.vue')
+    component: () => import('../views/email/viewDetail.vue')
   },
 ]
 
