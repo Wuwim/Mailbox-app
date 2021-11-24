@@ -30,28 +30,23 @@
         </div>
       </div>
       <div class="asw_pop" v-show="info.replyState == '0'" @click="open">
-        <img clas s="img" src="../../img/admin-asw.png" alt="" />
-        说点什么…
+        <!-- <img clas s="img" src="../../img/admin-asw.png" alt="" /> -->
+        <van-field
+          v-model="info.reply"
+          class="sayWhat"
+          @focus="focus"
+          @blur="blur"
+          rows="1"
+          :autosize="autosize"
+          type="textarea"
+          placeholder="说点什么…"
+          ><template #button>
+            <van-button v-show="isChecked" size="small" round type="info"
+              >提交</van-button
+            >
+          </template>
+        </van-field>
       </div>
-      <van-popup
-        v-model="isshow"
-        round
-        position="bottom"
-        :style="{ height: '30%' }"
-      >
-        <van-field v-model="info.reply" rows="1" autosize type="textarea" />
-        <van-button
-          class="sub"
-          round
-          size="normal"
-          type="info"
-          @click="
-            updateMailbox();
-            isshow = false;
-          "
-          >提交</van-button
-        >
-      </van-popup>
     </div>
   </div>
 </template>
@@ -60,8 +55,13 @@
 export default {
   data() {
     return {
+      autosize: {
+        maxHeight: 300,
+        minHeight: 42,
+      },
       id: "",
       isshow: false,
+      isChecked: false,
       info: {
         createBy: "411424199805042739",
         createTime: "2021-11-05 09:38:56",
@@ -69,7 +69,7 @@ export default {
         problemDescription: "问题描述测试",
         remark: null,
         theme: "问题主题",
-        reply: "回复内容",
+        reply: "",
         replyState: 0,
         searchValue: null,
         updateBy: "admin",
@@ -85,6 +85,14 @@ export default {
     this.getList();
   },
   methods: {
+    focus() {
+      this.isChecked = true;
+      console.log("ischecked:" + this.isChecked);
+    },
+    blur() {
+      this.isChecked = false;
+      console.log("ischecked:" + this.isChecked);
+    },
     getList() {},
     open() {
       this.isshow = true;
@@ -94,23 +102,25 @@ export default {
 </script>
 <style lang="scss" scoped>
 .box {
-  margin-top: 50px;
-  width: 335px;
+  margin: 50px 15px 0;
   height: 900px;
   background: #ffffff;
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.16);
   opacity: 1;
   border-radius: 5px;
+
   .box_logo_box {
     position: relative;
     top: -2%;
     left: 29%;
     width: 145px;
     height: 35px;
+
     .box_logo {
       width: 145px;
     }
   }
+
   .box_body {
     margin: 0 15px;
     font-size: 14px;
@@ -121,10 +131,12 @@ export default {
     color: #0c0c0c;
   }
 }
+
 .ask_infor {
   margin: 10px 15px;
   align-items: center;
 }
+
 .ask_head {
   display: flex;
   align-items: center;
@@ -134,21 +146,26 @@ export default {
   background: linear-gradient(180deg, #4b98f7 0%, #3779cc 100%);
   box-shadow: 0px 3px 5px rgba(0, 100, 251, 0.16);
   border-radius: 50%;
+
   .img {
     width: 8px;
     height: 12px;
   }
 }
+
 .ask_msg {
   margin-left: 10px;
   font-size: 11px;
+
   .ask_name {
     color: #3a3a3a;
   }
+
   .ask_idcode {
     color: #9c9c9c;
   }
 }
+
 .ask_time {
   flex: 1;
   font-size: 11px;
@@ -156,6 +173,7 @@ export default {
   text-align: right;
   margin-top: 12px;
 }
+
 .ask_box {
   width: 310px;
   margin: 20px auto 0;
@@ -165,14 +183,17 @@ export default {
   color: #3e4d70;
   line-height: 24px;
 }
+
 .ask {
   padding: 15px 14px;
+
   .asw_asw {
     padding: 1px 3px;
     background: #80b3f2;
     font-size: 11px;
     color: #fff;
   }
+
   .stat_time {
     text-align: right;
     font-size: 11px;
@@ -181,29 +202,29 @@ export default {
 
 .asw_pop {
   position: fixed;
-  left: 9%;
   bottom: 5%;
-  width: 302px;
-  height: 34px;
-  background: #f6f6f6;
-  border: 1px solid #dedede;
-  border-radius: 18px;
-  font-size: 12px;
-  color: #949494;
-  display: flex;
-  align-items: center;
-  img {
-    margin-left: 13px;
-    margin-right: 13px;
-    width: 12px;
-    height: 11px;
+  width: 90%;
+
+  .sayWhat ::v-deep .van-field__control {
+    padding: 10px 10px;
+    font-size: 14px;
+    background: none;
+    line-height: normal;
+    background-color: #f6f6f6;
+    border: 1px solid #dedede;
+    border-radius: 18px;
+    color: #949494;
   }
+
+  // .van-cell__value {
+  ::v-deep .van-field__body {
+    align-items: flex-end;
+  }
+  // }
 }
-.sub {
-  height: 30px;
-  position: fixed;
-  right: 5%;
-  bottom: 5%;
+
+.asw_pop_checked {
+  width: 70%;
 }
 
 input::-webkit-input-placeholder {
@@ -211,9 +232,11 @@ input::-webkit-input-placeholder {
   font-weight: 500;
   color: #0c0c0c;
 }
+
 textarea[class="content"]::-webkit-input-placeholder {
   color: #b2b2b2;
 }
+
 ::v-deep .van-field__control {
   font-size: 12px;
   background: url("../../img/line-bg.png") repeat;
@@ -221,6 +244,7 @@ textarea[class="content"]::-webkit-input-placeholder {
   line-height: 40px;
   color: #3e4d70;
 }
+
 ::v-deep .van-cell {
   padding: 0 15px;
 }

@@ -3,20 +3,21 @@
     <div class="box">
       <img class="box_logo" src="../../img/wemail.png" alt="" />
       <div class="box_body">
-        <input
+        <van-field
           v-model="info.title"
           maxlength="30"
           class="title"
           type="text"
           placeholder="主题："
         />
-        <textarea
+        <van-field
+          type="textarea"
           v-model="info.content"
-          class="content"
-          rows="13"
           maxlength="500"
+          class="content"
+          :autosize="autosize"
           placeholder="请输入详情（限制500字以内）"
-        ></textarea>
+        ></van-field>
       </div>
     </div>
     <div class="submit">
@@ -49,19 +50,29 @@
 export default {
   data() {
     return {
+      autosize: { maxHeight: 1000, minHeight: 500 },
       isshow: false,
       info: {
+        idCard: "",
+        phone: "",
+        username: "",
         title: "",
         content: "",
-        idCard: "",
+        createTime: "",
       },
+      list: {},
       id: "",
     };
   },
   created() {
-    let routerParams = this.$route.query.idCard;
-    console.log(routerParams);
-    this.info.idCard = routerParams;
+    this.info.idCard = this.$route.query.idCard;
+  },
+  mounted() {
+    this.list = JSON.parse(sessionStorage.getItem("info")); //本地获取数据
+    console.log(this.list);
+    this.list = JSON.stringify(this.list);
+    console.log(this.list);
+    console.log(this.list.length);
   },
   methods: {
     goindex() {
@@ -70,6 +81,20 @@ export default {
     open() {
       // 提交
       this.isshow = true;
+      var myDate = new Date();
+      this.createTime =
+        myDate.getFullYear() +
+        "-" +
+        (myDate.getMonth() + 1) +
+        "-" +
+        myDate.getDate() +
+        " " +
+        myDate.getHours() +
+        ":" +
+        myDate.getMinutes() +
+        ":" +
+        myDate.getSeconds();
+      console.log("createTiem:" + this.createTime);
     },
     close() {
       this.isshow = false;
@@ -88,6 +113,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .box {
+  flex: 1;
   margin: 50px 15px 0;
   // height: 1000px;
   background: #ffffff;
@@ -111,7 +137,7 @@ export default {
     background: url("../../img/line-bg.png") repeat;
     background-size: 10px 40px;
     width: 100%;
-    font-size: 12px;
+    font-size: 14px;
     border: none;
     outline: medium;
     line-height: 40px;

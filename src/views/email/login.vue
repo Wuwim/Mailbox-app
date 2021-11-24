@@ -107,14 +107,17 @@ export default {
   methods: {
     onSubmit() {
       // 判断进入状态  '1':普通员工;'2':管理员
+      this.$toast(this.info.username + "欢迎登录");
       console.log("info=", this.info);
+      sessionStorage.setItem("info", JSON.stringify(this.info));
+
       if (this.type === "1") {
         this.$router.push({
           path: "/email/writeEmail",
         });
       } else {
         this.$router.push({
-          path: "/email/viewDetail",
+          path: "/email/adminEmail",
         });
       }
     },

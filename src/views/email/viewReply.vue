@@ -2,14 +2,13 @@
   <div class="page">
     <div class="box">
       <img class="box_logo" src="../../img/aemail.png" alt="" />
-      <div class="box_body">
-        <input class="title" type="text" placeholder="回复：" readonly />
-      </div>
+      <van-field class="title" v-model="title" type="text" readonly />
       <van-field
+        class="content"
         v-model="info.reply"
         type="textarea"
         placeholder="该条信件暂时还没有领导回复，请等待~~~"
-        :autosize="{ maxHeight: 100, minHeight: 50 }"
+        autosize
         readonly
       />
       <div class="end_time">{{ info.updateTime }}</div>
@@ -32,14 +31,16 @@ export default {
     return {
       id: "",
       isshow: false,
+      title: "回复：",
       info: {
         createBy: "411424199805042739",
         createTime: "2021-11-05 09:38:56",
         phone: "13023767915",
-        problemDescription: "问题描述测试",
+        problemDescription: "问题描述测试问题描述测试问题描述测试",
         remark: null,
         theme: "问题主题",
-        reply: "回复内容",
+        reply:
+          "回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容",
         replyState: 0,
         searchValue: null,
         updateBy: "admin",
@@ -64,8 +65,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .box {
-  margin: 50px auto 0;
-  // height: 900px;
+  flex: 1;
+  margin: 50px 15px 0;
   background: #ffffff;
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.16);
   opacity: 1;
@@ -77,22 +78,11 @@ export default {
     left: 99px;
     margin: auto;
   }
-  .box_body {
-    width: 300px;
-    margin: auto;
-    font-size: 12px;
-    color: #000;
-    .title {
-      padding: 0;
-      background: url("../../img/line-bg.png") repeat;
-      background-size: 10px 40px;
-      width: 100%;
-      font-size: 12px;
-      border: none;
-      outline: medium;
-      line-height: 40px;
-      color: #000;
-    }
+  .title {
+    font-size: 16px;
+  }
+  .content {
+    font-size: 14px;
   }
 }
 .end_time {
@@ -109,7 +99,7 @@ export default {
   .ask {
     padding: 15px 14px;
     .title {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 500;
       color: #292929;
     }
@@ -126,14 +116,10 @@ export default {
     }
   }
 }
-
-input::-webkit-input-placeholder {
-  font-size: 14px;
-  font-weight: 500;
-  color: #0c0c0c;
+.asw_pop {
 }
-textarea[class="content"]::-webkit-input-placeholder {
-  color: #b2b2b2;
+.sayWhat {
+  background: none;
 }
 ::v-deep .van-field__control {
   background: url("../../img/line-bg.png") repeat;

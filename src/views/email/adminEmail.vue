@@ -119,102 +119,8 @@ export default {
       minDate: new Date(2021, 10, 1),
       maxDate: new Date(2022, 1, 1), //日历最大值
       show: false,
-      repliedList: [
-        //已读列表
-        {
-          createBy: "411424199805042739",
-          createTime: "2021-11-05 09:38:56",
-          phone: "13023767915",
-          problemDescription: "问题描述测试",
-          remark: null,
-          theme: "问题主题",
-          reply:
-            "问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试",
-          replyState: 1,
-          searchValue: null,
-          updateBy: "admin",
-          updateTime: "2021-11-05 09:45:20",
-          userName: "史雪宁",
-        },
-        {
-          createBy: "411424199805042739",
-          createTime: "2021-11-05 09:38:56",
-          phone: "13023767915",
-          problemDescription: "问题描述测试",
-          remark: null,
-          theme: "问题主题",
-          reply:
-            "问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试",
-          replyState: 1,
-          searchValue: null,
-          updateBy: "admin",
-          updateTime: "2021-11-05 09:45:20",
-          userName: "史雪宁",
-        },
-        {
-          createBy: "411424199805042739",
-          createTime: "2021-11-05 09:38:56",
-          phone: "13023767915",
-          problemDescription: "问题描述测试",
-          remark: null,
-          theme: "问题主题",
-          reply:
-            "问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试",
-          replyState: 1,
-          searchValue: null,
-          updateBy: "admin",
-          updateTime: "2021-11-05 09:45:20",
-          userName: "史雪宁",
-        },
-      ],
-      noReplyList: [
-        //未回复列表
-        {
-          createBy: "411424199805042739",
-          createTime: "2021-11-05 09:38:56",
-          phone: "13023767915",
-          problemDescription: "问题描述测试",
-          remark: null,
-          theme: "问题主题",
-          reply:
-            "问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试",
-          replyState: 1,
-          searchValue: null,
-          updateBy: "admin",
-          updateTime: "2021-11-05 09:45:20",
-          userName: "史雪宁",
-        },
-        {
-          createBy: "411424199805042739",
-          createTime: "2021-11-05 09:38:56",
-          phone: "13023767915",
-          problemDescription: "问题描述测试",
-          remark: null,
-          theme: "问题主题",
-          reply:
-            "问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试",
-          replyState: 1,
-          searchValue: null,
-          updateBy: "admin",
-          updateTime: "2021-11-05 09:45:20",
-          userName: "史雪宁",
-        },
-        {
-          createBy: "411424199805042739",
-          createTime: "2021-11-05 09:38:56",
-          phone: "13023767915",
-          problemDescription: "问题描述测试",
-          remark: null,
-          theme: "问题主题",
-          reply:
-            "问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试",
-          replyState: 1,
-          searchValue: null,
-          updateBy: "admin",
-          updateTime: "2021-11-05 09:45:20",
-          userName: "史雪宁",
-        },
-      ],
+      repliedList: [],
+      noReplyList: [],
     };
   },
   created() {
@@ -224,7 +130,10 @@ export default {
     this.getList(this.startTimeValue, this.endTimeValue, this.searchValue);
     this.getList1(this.startTimeValue, this.endTimeValue, this.searchValue);
   },
-
+  mounted() {
+    this.repliedList = JSON.parse(sessionStorage.getItem("repliedList")); //本地获取数据
+    this.noReplyList = JSON.parse(sessionStorage.getItem("noReplyList")); //本地获取数据
+  },
   methods: {
     onSearch(val) {
       this.$toast(val);
