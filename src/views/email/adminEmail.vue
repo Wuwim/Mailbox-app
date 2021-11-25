@@ -131,8 +131,14 @@ export default {
     this.getList1(this.startTimeValue, this.endTimeValue, this.searchValue);
   },
   mounted() {
-    this.repliedList = JSON.parse(sessionStorage.getItem("repliedList")); //本地获取数据
-    this.noReplyList = JSON.parse(sessionStorage.getItem("noReplyList")); //本地获取数据
+    var list = JSON.parse(sessionStorage.getItem("noReplyList")); //本地获取数据
+    for (var i in list) {
+      if (list[i].replyState == 0) {
+        this.noReplyList.push(list[i]);
+      } else {
+        this.repliedList.push(list[i]);
+      }
+    }
   },
   methods: {
     onSearch(val) {
@@ -148,7 +154,7 @@ export default {
     goReply(id) {
       //跳转管理员回信
       this.$router.push({
-        path: "/views/viewDetail",
+        path: "/email/viewDetail",
         query: {
           id: id,
           userId: this.userId,
@@ -183,11 +189,6 @@ export default {
 <style lang="scss" scoped>
 input[class="van-field__control"]::-webkit-input-placeholder {
   color: #000;
-}
-.page {
-  height: 100%;
-  overflow: auto;
-  background-color: #f6f6f6;
 }
 .title {
   z-index: 999;

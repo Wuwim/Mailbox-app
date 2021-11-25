@@ -4,7 +4,7 @@
       <div class="box_logo_box">
         <img class="box_logo" src="../../img/email.png" alt="" />
       </div>
-      <div class="box_body">{{ info.problemDescription }}</div>
+      <div class="box_body">{{ info.theme }}</div>
       <van-field
         v-model="info.problemDescription"
         type="textarea"
@@ -29,19 +29,18 @@
           <div class="stat_time">{{ info.updateTime }}</div>
         </div>
       </div>
-      <div class="asw_pop" v-show="info.replyState == '0'" @click="open">
+      <div class="asw_pop" v-show="info.replyState == '0'">
         <!-- <img clas s="img" src="../../img/admin-asw.png" alt="" /> -->
         <van-field
           v-model="info.reply"
           class="sayWhat"
           @focus="focus"
-          @blur="blur"
           rows="1"
           :autosize="autosize"
           type="textarea"
           placeholder="说点什么…"
           ><template #button>
-            <van-button v-show="isChecked" size="small" round type="info"
+            <van-button v-show="isChecked" round type="info" @click="open"
               >提交</van-button
             >
           </template>
@@ -62,27 +61,23 @@ export default {
       id: "",
       isshow: false,
       isChecked: false,
-      info: {
-        createBy: "411424199805042739",
-        createTime: "2021-11-05 09:38:56",
-        phone: "13023767915",
-        problemDescription: "问题描述测试",
-        remark: null,
-        theme: "问题主题",
-        reply: "",
-        replyState: 0,
-        searchValue: null,
-        updateBy: "admin",
-        updateTime: "2021-11-05 09:45:20",
-        userName: "史雪宁",
-      },
+      info: {},
+      list: [],
+      arr: [],
     };
   },
   created() {
     // let routerParams = this.$route.query.id;
     // console.log(routerParams);
     this.id = this.$route.query.id;
+    this.arr = JSON.parse(sessionStorage.getItem("noReplyList")); //本地获取数据
+    this.info = this.arr[this.id];
+    console.log("info", this.info);
     this.getList();
+  },
+  mounted() {
+    this.list = JSON.parse(sessionStorage.getItem("info")); //本地获取数据
+    this.info.updateBy = this.list.userName;
   },
   methods: {
     focus() {
@@ -95,7 +90,30 @@ export default {
     },
     getList() {},
     open() {
-      this.isshow = true;
+      if (this.info.reply == "") {
+        this.$toast("请输入回复的内容");
+        return false;
+      }
+      this.info.replyState = 1;
+
+      var myDate = new Date();
+      this.info.updateTime =
+        myDate.getFullYear() +
+        "-" +
+        (myDate.getMonth() + 1) +
+        "-" +
+        myDate.getDate() +
+        " " +
+        myDate.getHours() +
+        ":" +
+        myDate.getMinutes() +
+        ":" +
+        myDate.getSeconds();
+      console.log("info", this.info);
+
+      this.arr[this.id] = this.info;
+
+      sessionStorage.setItem("noReplyList", JSON.stringify(this.arr));
     },
   },
 };

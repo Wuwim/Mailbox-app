@@ -12,7 +12,7 @@
         <van-field
           size="large"
           left-icon="http://qn.zheskill.xyz/user.png"
-          v-model="info.username"
+          v-model="info.userName"
           name="userName"
           placeholder="请输入姓名"
           :rules="[{ required: true }]"
@@ -88,7 +88,7 @@ export default {
     return {
       type: this.$route.query.type ? this.$route.query.type : "1", //'1':普通员工;'2':管理员
       info: {
-        username: "",
+        userName: "",
         idCard: "",
         phone: "",
         verificationCode: "",
@@ -107,7 +107,7 @@ export default {
   methods: {
     onSubmit() {
       // 判断进入状态  '1':普通员工;'2':管理员
-      this.$toast(this.info.username + "欢迎登录");
+      this.$toast(this.info.userName + "欢迎登录");
       console.log("info=", this.info);
       sessionStorage.setItem("info", JSON.stringify(this.info));
 

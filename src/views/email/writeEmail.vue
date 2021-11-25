@@ -3,29 +3,39 @@
     <div class="box">
       <img class="box_logo" src="../../img/wemail.png" alt="" />
       <div class="box_body">
-        <van-field
-          v-model="info.title"
-          maxlength="30"
-          class="title"
-          type="text"
-          placeholder="主题："
-        />
-        <van-field
-          type="textarea"
-          v-model="info.content"
-          maxlength="500"
-          class="content"
-          :autosize="autosize"
-          placeholder="请输入详情（限制500字以内）"
-        ></van-field>
+        <van-form error-message-align="right" validate-first @submit="onSubmit">
+          <van-field
+            v-model="info.theme"
+            maxlength="30"
+            class="title"
+            type="text"
+            placeholder="主题："
+            :rules="[{ required: true }]"
+          />
+          <van-field
+            type="textarea"
+            v-model="info.problemDescription"
+            maxlength="500"
+            class="content"
+            :autosize="autosize"
+            placeholder="请输入详情（限制500字以内）"
+            :rules="[{ required: true }]"
+          ></van-field>
+          <div class="submit">
+            <van-button
+              class="submit_w"
+              round
+              block
+              type="info"
+              native-type="submit"
+            >
+              确定提交
+            </van-button>
+          </div>
+        </van-form>
       </div>
     </div>
-    <div class="submit">
-      <van-button class="submit_w" round block type="info" @click="open()">
-        确定提交
-      </van-button>
-    </div>
-
+    <!-- 自定义弹框 -->
     <div class="pop" v-show="isshow">
       <div class="qrcode_box flex_col">
         <div class="qrcode_w1 flex_row">
@@ -53,36 +63,43 @@ export default {
       autosize: { maxHeight: 1000, minHeight: 500 },
       isshow: false,
       info: {
-        idCard: "",
+        id: 0,
+        userName: "",
+        createBy: "",
         phone: "",
-        username: "",
-        title: "",
-        content: "",
+        theme: "",
+        problemDescription: "",
         createTime: "",
+        replyState: 0,
+        reply: "",
+        searchValue: null,
+        updateBy: "",
+        updateTime: "",
       },
       list: {},
       id: "",
+      arr: [],
     };
   },
   created() {
-    this.info.idCard = this.$route.query.idCard;
+    // this.info.createBy = this.$route.query.idCard;
   },
   mounted() {
     this.list = JSON.parse(sessionStorage.getItem("info")); //本地获取数据
-    console.log(this.list);
-    this.list = JSON.stringify(this.list);
-    console.log(this.list);
-    console.log(this.list.length);
+    this.info.userName = this.list.userName;
+    this.info.createBy = this.list.idCard;
+    this.info.phone = this.list.phone;
   },
   methods: {
     goindex() {
       this.isshow = false;
     },
-    open() {
+    onSubmit(values) {
+      console.log("submit", values);
       // 提交
       this.isshow = true;
       var myDate = new Date();
-      this.createTime =
+      this.info.createTime =
         myDate.getFullYear() +
         "-" +
         (myDate.getMonth() + 1) +
@@ -95,6 +112,14 @@ export default {
         ":" +
         myDate.getSeconds();
       console.log("createTiem:" + this.createTime);
+      console.log("info", this.info);
+      this.arr = JSON.parse(sessionStorage.getItem("noReplyList")); //本地获取数据
+      this.arr.push(this.info);
+      for (var i in this.arr) {
+        this.arr[i].id = i;
+        this.id = i;
+      }
+      sessionStorage.setItem("noReplyList", JSON.stringify(this.arr));
     },
     close() {
       this.isshow = false;
@@ -102,7 +127,7 @@ export default {
     goViewRply() {
       // 查看回复详情
       this.$router.push({
-        path: "/views/viewReply",
+        path: "/email/viewReply",
         query: {
           id: this.id,
         },

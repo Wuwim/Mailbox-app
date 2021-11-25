@@ -32,21 +32,7 @@ export default {
       id: "",
       isshow: false,
       title: "回复：",
-      info: {
-        createBy: "411424199805042739",
-        createTime: "2021-11-05 09:38:56",
-        phone: "13023767915",
-        problemDescription: "问题描述测试问题描述测试问题描述测试",
-        remark: null,
-        theme: "问题主题",
-        reply:
-          "回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容",
-        replyState: 0,
-        searchValue: null,
-        updateBy: "admin",
-        updateTime: "2021-11-05 09:45:20",
-        userName: "史雪宁",
-      },
+      info: {},
     };
   },
 
@@ -55,6 +41,9 @@ export default {
     console.log(routerParams);
     this.id = routerParams;
     this.getInfo();
+
+    this.arr = JSON.parse(sessionStorage.getItem("noReplyList")); //本地获取数据
+    this.info = this.arr[this.id];
   },
   methods: {
     getInfo() {
