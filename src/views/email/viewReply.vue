@@ -110,16 +110,16 @@ export default {
 .sayWhat {
   background: none;
 }
-::v-deep .van-field__control {
-  background: url("../../img/line-bg.png") repeat;
-  background-size: 10px 40px;
-  line-height: 40px;
-  color: #3e4d70;
-}
 ::v-deep .van-cell {
   padding: 0 17.5px;
 }
 ::v-deep .van-cell::after {
   display: none;
+}
+::v-deep .van-field__control {
+  background: url("../../img/line-bg.png") repeat;
+  background-size: 10px 40px;
+  line-height: 40px;
+  color: #3e4d70;
 }
 </style>

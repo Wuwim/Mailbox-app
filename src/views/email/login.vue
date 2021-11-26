@@ -112,6 +112,7 @@ export default {
       sessionStorage.setItem("info", JSON.stringify(this.info));
 
       if (this.type === "1") {
+        console.log('this.type === "1"');
         this.$router.push({
           path: "/email/writeEmail",
         });
@@ -200,6 +201,20 @@ export default {
 }
 .form_box {
   padding: 70px 8px 0;
+
+  ::v-deep .van-field__left-icon {
+    display: flex;
+    // align-items: center;
+    justify-content: center;
+    margin-right: 14px;
+  }
+  ::v-deep .van-field__control {
+    font-size: 14px;
+    color: #3e4d70;
+  }
+  ::v-deep .van-icon {
+    font-size: 18px;
+  }
   .btn {
     padding: 120px 20px 0;
   }
@@ -218,18 +233,5 @@ export default {
   background-color: transparent;
   border: none;
   color: #4b98f7;
-}
-::v-deep .van-field__left-icon {
-  display: flex;
-  // align-items: center;
-  justify-content: center;
-  margin-right: 14px;
-}
-::v-deep .van-field__control {
-  font-size: 14px;
-  color: #3e4d70;
-}
-::v-deep .van-icon {
-  font-size: 18px;
 }
 </style>

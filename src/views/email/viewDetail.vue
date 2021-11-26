@@ -24,8 +24,7 @@
       </div>
       <div class="ask_box" v-show="info.replyState == '1'">
         <div class="ask">
-          <span class="asw_asw">回复</span>：
-          {{ info.reply }}
+          <span class="asw_asw">回复</span>：{{ info.reply }}
           <div class="stat_time">{{ info.updateTime }}</div>
         </div>
       </div>
@@ -120,8 +119,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .box {
+  flex: 1;
   margin: 50px 15px 0;
-  height: 900px;
   background: #ffffff;
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.16);
   opacity: 1;
@@ -148,6 +147,20 @@ export default {
     font-weight: 500;
     color: #0c0c0c;
   }
+  .van-cell {
+    padding: 0 15px 0px;
+    margin-bottom: 2px;
+    ::v-deep .van-field__control {
+      font-size: 12px;
+      background: url("../../img/line-bg.png") repeat;
+      background-size: 10px 40px;
+      line-height: 40px;
+      color: #3e4d70;
+    }
+  }
+  .van-cell::after {
+    border-bottom: none;
+  }
 }
 
 .ask_infor {
@@ -156,6 +169,7 @@ export default {
 }
 
 .ask_head {
+  margin-right: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -172,7 +186,6 @@ export default {
 }
 
 .ask_msg {
-  margin-left: 10px;
   font-size: 11px;
 
   .ask_name {
@@ -204,7 +217,8 @@ export default {
 
 .ask {
   padding: 15px 14px;
-
+  margin-bottom: 20px;
+  word-break: break-all;
   .asw_asw {
     padding: 1px 3px;
     background: #80b3f2;
@@ -223,6 +237,9 @@ export default {
   bottom: 5%;
   width: 90%;
 
+  .van-cell {
+    background-color: transparent;
+  }
   .sayWhat ::v-deep .van-field__control {
     padding: 10px 10px;
     font-size: 14px;
@@ -253,17 +270,5 @@ input::-webkit-input-placeholder {
 
 textarea[class="content"]::-webkit-input-placeholder {
   color: #b2b2b2;
-}
-
-::v-deep .van-field__control {
-  font-size: 12px;
-  background: url("../../img/line-bg.png") repeat;
-  background-size: 10px 40px;
-  line-height: 40px;
-  color: #3e4d70;
-}
-
-::v-deep .van-cell {
-  padding: 0 15px;
 }
 </style>

@@ -187,9 +187,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-input[class="van-field__control"]::-webkit-input-placeholder {
-  color: #000;
-}
 .title {
   z-index: 999;
   position: fixed;
@@ -198,6 +195,13 @@ input[class="van-field__control"]::-webkit-input-placeholder {
   display: flex;
   align-items: center;
   background: #fff;
+
+  .van-cell {
+    width: 303px;
+    background: #f6f7fb;
+    border-radius: 10px;
+    padding: 10px 0px 10px 13px;
+  }
   .reset {
     font-size: 14px;
     color: #4b98f7;
@@ -213,16 +217,34 @@ input[class="van-field__control"]::-webkit-input-placeholder {
     }
   }
 }
-.chose_times {
-  background: #ffffff;
-}
 .reply_box {
-}
-.replied_box {
-  margin: 0 15px;
+  ::v-deep .van-tabs__wrap {
+    margin-top: 75px;
+    z-index: 999;
+    width: 100%;
+    position: fixed;
+  }
+  ::v-deep .van-tabs__content {
+    padding-top: 120px;
+  }
+  ::v-deep .van-field__left-icon {
+    margin-right: 10px;
+  }
+  ::v-deep .van-tabs__line {
+    width: 124px;
+    background: #323232;
+  }
+  ::v-deep .van-tab {
+    color: #b1b2b4;
+    font-weight: 400;
+  }
+  ::v-deep .van-tab--active {
+    color: #333333;
+    font-weight: 500;
+  }
 }
 .replied {
-  margin-top: 15px;
+  margin: 15px 15px 0;
   padding: 15px 15px;
   background: #ffffff;
   box-shadow: 0px 3px 13px rgba(188, 200, 214, 0.22);
@@ -315,6 +337,7 @@ input[class="van-field__control"]::-webkit-input-placeholder {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
+    word-break: break-all;
     .asw_asw {
       padding: 1px 3px;
       background: #80b3f2;
@@ -331,53 +354,26 @@ input[class="van-field__control"]::-webkit-input-placeholder {
   }
 }
 
-::v-deep .van-tabs__wrap {
-  margin-top: 75px;
-  z-index: 999;
-  width: 100%;
-  position: fixed;
-}
-::v-deep .van-tabs__content {
-  padding-top: 120px;
-}
-::v-deep .van-cell {
-  width: 303px;
-  background: #f6f7fb;
-  border-radius: 10px;
-  padding: 10px 0px 10px 13px;
-}
-::v-deep .van-field__left-icon {
-  margin-right: 10px;
-}
-::v-deep .van-tabs__line {
-  width: 124px;
-  background: #323232;
-}
-::v-deep .van-tab {
-  color: #b1b2b4;
-  font-weight: 400;
-}
-::v-deep .van-tab--active {
-  color: #333333;
-  font-weight: 500;
-}
-::v-deep .van-calendar__day--start {
-  border-radius: 20px 0 0 20px;
-}
-::v-deep .van-calendar__day--end {
-  border-radius: 0 20px 20px 0;
-}
-::v-deep .van-calendar__day {
-  margin: 10px 0;
-}
-::v-deep .van-calendar__bottom-info {
-  // display: none;
-}
-::v-deep .van-calendar__day--middle {
-  color: #ffffff !important;
-  background: #4b98f7;
-}
-::v-deep .van-calendar__day--middle::after {
-  background: #4b98f7;
+.chose_times {
+  background: #ffffff;
+  ::v-deep .van-calendar__day--start {
+    border-radius: 20px 0 0 20px;
+  }
+  ::v-deep .van-calendar__day--end {
+    border-radius: 0 20px 20px 0;
+  }
+  ::v-deep .van-calendar__day {
+    margin: 10px 0;
+  }
+  ::v-deep .van-calendar__bottom-info {
+    // display: none;
+  }
+  ::v-deep .van-calendar__day--middle {
+    color: #ffffff !important;
+    background: #4b98f7;
+  }
+  ::v-deep .van-calendar__day--middle::after {
+    background: #4b98f7;
+  }
 }
 </style>
