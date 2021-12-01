@@ -34,9 +34,9 @@
         <van-field
           v-if="!(this.type === '1')"
           left-icon="http://qn.zheskill.xyz/password.png"
-          v-model="info.idCard"
+          v-model="info.password"
           type="password"
-          name="idCard"
+          name="password"
           placeholder="请输入密码"
           :rules="[{ required: true }]"
         />
@@ -89,6 +89,7 @@ export default {
       type: this.$route.query.type ? this.$route.query.type : "1", //'1':普通员工;'2':管理员
       info: {
         userName: "",
+        password: "",
         idCard: "",
         phone: "",
         verificationCode: "",

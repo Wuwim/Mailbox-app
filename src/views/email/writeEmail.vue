@@ -5,6 +5,7 @@
       <div class="box_body">
         <van-form error-message-align="right" validate-first @submit="onSubmit">
           <van-field
+            name="theme"
             v-model="info.theme"
             maxlength="30"
             class="title"
@@ -13,6 +14,7 @@
             :rules="[{ required: true }]"
           />
           <van-field
+            name="problemDescription"
             type="textarea"
             v-model="info.problemDescription"
             maxlength="500"
@@ -98,6 +100,7 @@ export default {
       console.log("submit", values);
       // 提交
       this.isshow = true;
+      // 生成当前发送时间
       var myDate = new Date();
       this.info.createTime =
         myDate.getFullYear() +
@@ -235,12 +238,5 @@ export default {
     font-size: 12px;
     color: #d1d1d1;
   }
-}
-
-input::-webkit-input-placeholder {
-  color: #b2b2b2;
-}
-textarea[class="content"]::-webkit-input-placeholder {
-  color: #b2b2b2;
 }
 </style>
